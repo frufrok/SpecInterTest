@@ -1,16 +1,28 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import manager
+import note_printer as np
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    my_manager = manager.Manager("Name", "Path")
+    my_note_printer = np.get_default_note_printer()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print(my_manager.add_note("Note name", "Some note text can be too long"))
+    print(my_manager.add_note("Note name", "Some note text can be too long"))
+    print(my_manager.add_note("Note name", "Some note text can be too long"))
+    my_note_printer.print_notes(my_manager.notes)
+    print(my_manager.delete_note(2))
+    print(my_manager.delete_note(4))
+    my_note_printer.print_notes(my_manager.notes)
+    print(my_manager.delete_note(3))
+    my_note_printer.print_notes(my_manager.notes)
+    print(my_manager.add_note("Note name", "Some note text can be too long"))
+    print(my_manager.add_note("Note name", "Some note text can be too long"))
+    print(my_manager.add_note("Note name", "Some note text can be too long"))
+    print(my_manager.add_note("Note name", "Some note text can be too long"))
+    my_note_printer.print_notes(my_manager.notes)
+    print(my_manager.renum_notes())
+    my_note_printer.print_notes(my_manager.notes)
+    print(my_manager.add_note("Note name", "Some note text can be too long"))
+    print(my_manager.add_note("Note name", "Some note text can be too long"))
+    my_note_printer.print_notes(my_manager.notes)
+
