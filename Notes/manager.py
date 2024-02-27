@@ -1,20 +1,12 @@
 import note
-import os
 import json
 from operator import attrgetter
 
 
 class Manager:
-    def __init__(self, file_name, dir_path):
-        self.file_name = file_name
-        self.dir_path = dir_path
+    def __init__(self):
         self.notes = []
         self.max_id = 0
-
-    def can_be_written(self):
-        return os.path.isdir(self.dir_path) and not os.path.isfile(os.path.join(self.dir_path, self.file_name))
-
-    # def write_file(self):
 
     def add_note(self, name, text):
         local_id = self.max_id + 1
@@ -55,3 +47,24 @@ class Manager:
             self.notes[i].local_id = i + 1
         self.max_id = len(self.notes)
         return "Notes were renumerated."
+
+
+def note_manager_to_json(manager):
+    my_dict = {"notes": list(map(lambda x: note.note_to_json(x), manager.notes)),
+               "max_id": manager.max_id}
+    return json.dumps(my_dict)
+
+
+def json_to_note_manager(json_string):
+    o = json.loads(json_string)
+    try:
+        notes = o["notes"]
+        max_id = o["max_id"]
+        result = Manager("", "")
+        result.notes = map(lambda x: note.json_to_note(x), notes)
+        result.max_id = max_id
+        return result
+    except KeyError:
+        result = Manager("", "")
+        result.add_note("Error reading file", "Error occurred while reading file.")
+        return Manager("", "")

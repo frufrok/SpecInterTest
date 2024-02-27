@@ -1,4 +1,3 @@
-import datetime
 import datetime as dt
 import json
 
@@ -30,18 +29,18 @@ def json_to_note(json_string):
         created = o["created"]
         modified = o["modified"]
         result = Note(local_id, name, text)
-        result.created = datetime.datetime(created[0],
-                                           created[1],
-                                           created[2],
-                                           created[3],
-                                           created[4],
-                                           created[5])
-        result.last_modified = datetime.datetime(modified[0],
-                                                 modified[1],
-                                                 modified[2],
-                                                 modified[3],
-                                                 modified[4],
-                                                 modified[5])
+        result.created = dt.datetime(created[0],
+                                     created[1],
+                                     created[2],
+                                     created[3],
+                                     created[4],
+                                     created[5])
+        result.last_modified = dt.datetime(modified[0],
+                                           modified[1],
+                                           modified[2],
+                                           modified[3],
+                                           modified[4],
+                                           modified[5])
         return result
     except KeyError:
         return Note(0, "Read error", "Error occurred when reading this note.")
