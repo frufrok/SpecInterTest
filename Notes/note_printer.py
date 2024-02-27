@@ -62,3 +62,15 @@ class NotePrinter:
 
         for result_item in result:
             print(result_item)
+
+    def print_config(self):
+        print(eq_len_string("Field", 25) + "\t" + eq_len_string("Show", 5) + "\t" + eq_len_string("Length", 6))
+        print_config_string("ID", True, self.id_field_length)
+        print_config_string("Name", self.to_show_name, self.name_field_length)
+        print_config_string("Text", self.to_show_text_preview, self.text_preview_field_length)
+        print_config_string("Created at", self.to_show_created, self.created_field_length)
+        print_config_string("Last modified at", self.to_show_modified, self.modified_field_length)
+
+
+def print_config_string(name, is_shown, length):
+    print(eq_len_string(name, 25) + "\t" + eq_len_string(f"{is_shown}", 5) + "\t" + eq_len_string(f"{length}", 6))
