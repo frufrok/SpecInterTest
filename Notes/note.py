@@ -19,6 +19,13 @@ class Note:
             "last_modified": self.last_modified
         })
 
+    def edit(self, new_name, new_text):
+        if new_name != '':
+            self.name = new_name
+        if new_text != '':
+            self.text = new_text
+        self.last_modified = dt.datetime.now()
+
 
 def json_to_note(json_string):
     o = json.loads(json_string)

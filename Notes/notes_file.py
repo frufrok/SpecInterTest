@@ -3,7 +3,7 @@ import json
 from operator import attrgetter
 
 
-class Manager:
+class NotesFile:
     def __init__(self):
         self.notes = []
         self.max_id = 0
@@ -19,6 +19,14 @@ class Manager:
         if note_index >= 0:
             self.notes.pop(note_index)
             return f"Note with id={local_id} was deleted."
+        else:
+            return f"There is no id={local_id}."
+
+    def edit_note(self, local_id, new_name, new_text):
+        index = self.get_note_index_by_id(local_id)
+        if index > -1:
+            self.notes[index].edit(new_name, new_text)
+            return f"Note with id={local_id} was edited."
         else:
             return f"There is no id={local_id}."
 
@@ -57,14 +65,10 @@ def note_manager_to_json(manager):
 
 def json_to_note_manager(json_string):
     o = json.loads(json_string)
-    try:
-        notes = o["notes"]
-        max_id = o["max_id"]
-        result = Manager("", "")
-        result.notes = map(lambda x: note.json_to_note(x), notes)
-        result.max_id = max_id
-        return result
-    except KeyError:
-        result = Manager("", "")
-        result.add_note("Error reading file", "Error occurred while reading file.")
-        return Manager("", "")
+    notes = o["notes"]
+    max_id = o["max_id"]
+    result = NotesFile()
+    result.notes = list(map(lambda x: note.json_to_note(x), notes))
+    result.max_id = max_id
+    return result
+
